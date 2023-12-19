@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>student-list</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-list>
+        <ion-item [routerLink]="['/student-details']" *ngFor="let student of students">
+            <ion-label>
+                <h2>ID: {{ student.nom }}</h2>
+                <h2>Name: {{ student.prenom }}</h2>
+                <h2>Age: {{ student.niveau }}</h2>
+            </ion-label>
+        </ion-item>
+    </ion-list>

@@ -1,0 +1,43 @@
+<!--<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>add-mark</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">add-mark</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>-->
+<!-- add-mark.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ajouter une note
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit(markForm)" #markForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Score</ion-label>
+      <ion-input type="number" name="score" [(ngModel)]="mark.score" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Matière</ion-label>
+      <ion-input type="text" name="course" [(ngModel)]="mark.course" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Semestre</ion-label>
+      <ion-input type="text" name="semester" [(ngModel)]="mark.semester" required></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="full">Ajouter</ion-button>
+  </form>
+</ion-content>

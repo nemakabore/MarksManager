@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>student-details</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-card *ngIf="student">
+        <ion-card-header>
+            <ion-card-title>ID: {{ student.id }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>Nom: {{ student.nom }}</p>
+            <p>Prénom: {{ student.prenom }}</p>
+            <p>Niveau: {{ student.niveau }}</p>
+            <!-- Ajoutez d'autres détails si nécessaire -->
+        </ion-card-content>
+    </ion-card>
+</ion-content>
