@@ -8,7 +8,7 @@ import { Student } from '../models/student.model';
 })
 export class HomePage implements OnInit {
 
-  students: Student[] = [
+  /*students: Student[] = [
     {
       id: 1,
       nom: 'Ouedraogo',
@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
       note: { score: 15, course: 'SVT', semester: 'S1' } // Ajout de la propriété note correspondant à un objet Mark
     },
 
-  ];
+  ];*/
 
   constructor() { }
   ngOnInit(): void {

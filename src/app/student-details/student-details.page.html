@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>student-details</ion-title>
     </ion-toolbar>
@@ -12,8 +12,73 @@
         <ion-card-content>
             <p>Nom: {{ student.nom }}</p>
             <p>Prénom: {{ student.prenom }}</p>
-            <p>Niveau: {{ student.niveau }}</p>
+            <p>Niveau: {{ student.niveau }}</p>-->
             <!-- Ajoutez d'autres détails si nécessaire -->
-        </ion-card-content>
+<!--        </ion-card-content>
     </ion-card>
+</ion-content>-->
+
+<!-- student-details.page.html -->
+
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Détails de l'étudiant
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      {{ student.nom }} {{ student.prenom }} (ID: {{ student.id }})
+    </ion-card-header>
+    <ion-card-content>
+      <p>Niveau: {{ student.niveau }}</p>
+      <p>Note: {{ student.note }}</p>-->
+      <!-- Ajoutez d'autres détails ici -->
+    <!--</ion-card-content>
+  </ion-card>
+</ion-content>-->
+
+<!-- student-details.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Détails de l'étudiant
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-label>ID: {{ student?.id }}</ion-label>
+      <ion-label>Nom: {{ student?.nom }}</ion-label>
+      <ion-label>Prénom: {{ student?.prenom }}</ion-label>
+      <ion-label>Niveau: {{ student?.niveau }}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Notes
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let mark of mark">
+          {{ mark.course }} - {{ mark.score }}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+<ion-button (click)="deleteStudent()">Supprimer l'étudiant</ion-button>
+
+<ion-button (click)="goToEditStudentPage()">Modifier l'étudiant</ion-button>
+  <ion-button (click)="goToAddMarkPage()">Ajouter une note</ion-button>
 </ion-content>
+
+e

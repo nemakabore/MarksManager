@@ -1,13 +1,28 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>edit-mark</ion-title>
+    <ion-title>
+      Ajouter une note
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">edit-mark</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label>Score</ion-label>
+      <ion-input type="number" [(ngModel)]="mark.score" name="score" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cours</ion-label>
+      <ion-input type="text" [(ngModel)]="mark.course" name="course" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Semestre</ion-label>
+      <ion-input type="text" [(ngModel)]="mark.semester" name="semester" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!f.valid">Valider</ion-button>
+  </form>
 </ion-content>

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { StudentService } from '../student.service';
+import { Subscription } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
 import { Student } from '../models/student.model';
 
 @Component({
@@ -6,36 +9,41 @@ import { Student } from '../models/student.model';
   templateUrl: './student-list.page.html',
   styleUrls: ['./student-list.page.scss'],
 })
-export class StudentListPage implements OnInit {
+export class StudentListPage implements OnInit, OnDestroy {
 
-  students: Student[] = [
-    {
-      id: 1,
-      nom: 'Ouedraogo',
-      prenom: 'Ali',
-      niveau: 'IC1',
-      note: { score: 16, course: 'HG', semester: 'S1' } // Ajout de la propriété note correspondant à un objet Mark
-    },
-    {
-      id: 2,
-      nom: 'Ouedraogo',
-      prenom: 'azerty',
-      niveau: 'IC1',
-      note: { score: 17, course: 'math', semester: 'S1' } // Ajout de la propriété note correspondant à un objet Mark
-    },
-    {
-      id: 3,
-      nom: 'qwerty',
-      prenom: 'azerty',
-      niveau: 'IC1',
-      note: { score: 15, course: 'SVT', semester: 'S1' } // Ajout de la propriété note correspondant à un objet Mark
-    },
-  ];
+  students: Student[] = [];
+  private subscription: Subscription;
 
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private storage : Storage,
+    private studentService: StudentService) {
+    this.subscription = new Subscription();
   }
 
-}
+  async ngOnInit(): Promise<void> {
+   this.readAllStudent();
+    this.subscription.add(
+      this.studentService.onStudentListUpdate().subscribe(() => {
+        this.students = this.studentService.getStudents();
+      })
+    );
+
+    //attention: pour vider le stockage, à décommenter seulement au besoin
+    //await this.studentService.clearStudents();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  readAllStudent() {
+    this.students = [];
+    this.storage.forEach((v:Student) => {
+      this.students.push(v);
+    });
+    return this.students;
+  }
+  ionViewWillEnter() {
+    this.readAllStudent();
+  }
+  }

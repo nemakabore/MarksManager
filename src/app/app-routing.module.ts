@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { StudentListPage } from './student-list/student-list.page'; // Assurez-vous que le chemin et la casse sont corrects
+import { EditMarkPage } from './edit-mark/edit-mark.page';
+import { StudentDetailsPage } from './student-details/student-details.page';
 
 const routes: Routes = [
   {
@@ -47,6 +50,8 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
+  { path: 'edit-mark/:id', component: EditMarkPage },
+  { path: 'student-details/:id', component: StudentDetailsPage },
 
 ];
 

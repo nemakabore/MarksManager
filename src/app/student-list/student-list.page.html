@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>student-list</ion-title>
     </ion-toolbar>
@@ -13,4 +13,24 @@
                 <h2>Age: {{ student.niveau }}</h2>
             </ion-label>
         </ion-item>
-    </ion-list>
+    </ion-list>-->
+
+    <!-- student-list.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Liste des étudiants
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let student of students" [routerLink]="['/student-details', student.id]">
+      {{ student.nom }}
+      {{ student.prenom }}
+      {{ student.niveau }}
+    </ion-item>
+  </ion-list>
+</ion-content>
