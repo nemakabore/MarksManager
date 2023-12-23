@@ -62,6 +62,100 @@
 //   }
 // }
 
+// import { Component, OnInit } from '@angular/core';
+// import { Storage } from '@ionic/storage-angular';
+// import { ActivatedRoute, Router } from '@angular/router';
+// import { Mark } from '../models/mark.model';
+// import { StudentService } from '../student.service';
+
+// @Component({
+//   selector: 'app-student-details',
+//   templateUrl: './student-details.page.html',
+//   styleUrls: ['./student-details.page.scss'],
+// })
+// export class StudentDetailsPage implements OnInit {
+//   student: any;
+//   mark: Mark[] = [];
+//   //studentService: any;
+//   constructor(
+//     private activatedRoute: ActivatedRoute,
+//     private storage: Storage,
+//     private router: Router,
+//     private studentService: StudentService
+//   ) {
+//     this.mark = [];
+//   }
+
+//   async ngOnInit() {
+//     const studentId = this.activatedRoute.snapshot.paramMap.get('id');
+
+//     if (studentId !== null) {
+//       this.student = await this.getStudentById(+studentId);
+//       this.student = await this.studentService.getStudentByIdFromStorage(+studentId);
+//     }  else {
+//       console.error('ID de l\'étudiant non disponible.');
+//     }
+//   }
+
+//   async getStudentById(id: number) {
+//     let student: any;
+//     await this.storage.forEach((v: any) => {
+//       if (v.id === id) {
+//         student = v;
+//       }
+//     });
+//     this.mark = student.marks;
+//     return student;
+//   }
+
+//   goToAddMarkPage() {
+//     if (this.student) {
+//       // Naviguer vers la page 'edit-mark' avec l'ID de l'étudiant
+//       this.router.navigate(['/edit-mark', this.student.id]);
+//     } else {
+//       console.error('Erreur : étudiant non défini.');
+//     }
+//   }
+
+
+//   async deleteStudent() {
+//     await this.studentService.deleteStudent(this.student.id);
+//   this.router.navigate(['/student-list']);
+// }
+
+
+// goToEditStudentPage() {
+//   this.router.navigate(['/add-student', this.student.id]);
+// }
+
+// /** */
+// async loadStudentDetails() {
+//   const studentId = this.activatedRoute.snapshot.paramMap.get('id');
+
+//   if (studentId !== null) {
+//     // Utilisez la fonction getStudentByIdFromStorage pour obtenir l'étudiant
+//     const student = await this.studentService.getStudentByIdFromStorage(+studentId);
+
+//     if (student) {
+//       this.student = student;
+
+//       // Vérifiez si 'marks' est défini avant d'accéder à ses propriétés
+//       if (student.marks) {
+//         this.mark = student.marks;
+//       } else {
+//         this.mark = [];
+//       }
+//     } else {
+//       console.error('ID de l\'étudiant non disponible.');
+//     }
+//   } else {
+//     console.error('ID de l\'étudiant non disponible.');
+//   }
+// }
+// /** */
+
+// }
+
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -76,7 +170,8 @@ import { StudentService } from '../student.service';
 export class StudentDetailsPage implements OnInit {
   student: any;
   mark: Mark[] = [];
-  //studentService: any;
+  averageBySemester: any;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private storage: Storage,
@@ -90,21 +185,39 @@ export class StudentDetailsPage implements OnInit {
     const studentId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (studentId !== null) {
-      this.student = await this.getStudentById(+studentId);
+      const student = await this.studentService.getStudentByIdFromStorage(+studentId);
+      if (student) {
+        this.student = student;
+        if (this.student.marks) {
+          this.mark = this.student.marks;
+        } else {
+          this.mark = [];
+        }
+        this.averageBySemester = await this.studentService.getAverageBySemester(+studentId);
+      } else {
+        console.error('Étudiant non trouvé.');
+      }
+      this.averageBySemester = await this.storage.get(`average_${studentId}`);
     } else {
       console.error('ID de l\'étudiant non disponible.');
     }
   }
 
-  async getStudentById(id: number) {
-    let student: any;
-    await this.storage.forEach((v: any) => {
-      if (v.id === id) {
-        student = v;
+
+
+  async ionViewWillEnter() {
+    const studentId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    if (studentId !== null) {
+      this.student = await this.studentService.getStudentByIdFromStorage(+studentId);
+      if (this.student && this.student.marks) {
+        this.mark = this.student.marks;
+      } else {
+        this.mark = [];
       }
-    });
-    this.mark = student.marks;
-    return student;
+    } else {
+      console.error('ID de l\'étudiant non disponible.');
+    }
   }
 
   goToAddMarkPage() {
@@ -116,19 +229,12 @@ export class StudentDetailsPage implements OnInit {
     }
   }
 
-
-
-
-
   async deleteStudent() {
     await this.studentService.deleteStudent(this.student.id);
-  this.router.navigate(['/student-list']);
-}
+    this.router.navigate(['/student-list']);
+  }
 
-
-goToEditStudentPage() {
-  this.router.navigate(['/add-student', this.student.id]);
-}
-
-
+  goToEditStudentPage() {
+    this.router.navigate(['/add-student', this.student.id]);
+  }
 }

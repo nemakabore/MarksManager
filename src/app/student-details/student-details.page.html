@@ -1,26 +1,6 @@
-<!--<ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>student-details</ion-title>
-    </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-    <ion-card *ngIf="student">
-        <ion-card-header>
-            <ion-card-title>ID: {{ student.id }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            <p>Nom: {{ student.nom }}</p>
-            <p>Prénom: {{ student.prenom }}</p>
-            <p>Niveau: {{ student.niveau }}</p>-->
-            <!-- Ajoutez d'autres détails si nécessaire -->
-<!--        </ion-card-content>
-    </ion-card>
-</ion-content>-->
-
-<!-- student-details.page.html -->
-
-<!--<ion-header>
+<!--
+<ion-header>
   <ion-toolbar>
     <ion-title>
       Détails de l'étudiant
@@ -29,19 +9,108 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      {{ student.nom }} {{ student.prenom }} (ID: {{ student.id }})
-    </ion-card-header>
-    <ion-card-content>
-      <p>Niveau: {{ student.niveau }}</p>
-      <p>Note: {{ student.note }}</p>-->
-      <!-- Ajoutez d'autres détails ici -->
-    <!--</ion-card-content>
-  </ion-card>
-</ion-content>-->
+  <ion-card *ngIf="student">
 
-<!-- student-details.page.html -->
+    <ion-card-header>
+      <ion-card-title>{{ student.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>Matricule: {{ student?.id }}</p>
+        <p>Nom: {{ student?.nom }}</p>
+          <p>Prénom: {{ student?.prenom }}</p>
+            <p>Niveau: {{ student?.niveau }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>
+      Notes
+    </ion-list-header>
+
+    <ion-item *ngFor="let mark of mark">
+      <ion-label>
+        <h2>{{ mark.course }}</h2>
+        <p>Semestre: {{ mark.semester }}</p>
+        <p>Note: {{ mark.score }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          Moyenne par semestre
+        </ion-list-header>
+
+        <ion-item *ngFor="let semester of averageBySemester | keyvalue">
+          <ion-label>
+            <h2>{{ semester.key }}</h2>
+            <p>Moyenne: {{ semester.value }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+
+<ion-button (click)="deleteStudent()">Supprimer l'étudiant</ion-button>
+
+<ion-button (click)="goToEditStudentPage()">Modifier l'étudiant</ion-button>
+  <ion-button (click)="goToAddMarkPage()">Ajouter une note</ion-button>
+</ion-content> -->
+
+
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>Détails de l'étudiant</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="student">
+    <ion-card-header>
+      <ion-card-title>{{ student.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+        <p>Matricule: {{ student?.id }}</p>
+          <p>Nom: {{ student?.nom }}</p>
+            <p>Prénom: {{ student?.prenom }}</p>
+              <p>Niveau: {{ student?.niveau }}</p>
+
+
+      <ion-list>
+        <ion-list-header>
+          Notes
+        </ion-list-header>
+
+        <ion-item *ngFor="let mark of mark">
+          <ion-label>
+            <h2>{{ mark.course }}</h2>
+            <p>Semestre: {{ mark.semester }}</p>
+            <p>Note: {{ mark.score }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          Moyenne par semestre
+        </ion-list-header>
+
+        <ion-item *ngFor="let semester of averageBySemester | keyvalue">
+          <ion-label>
+            <h2>{{ semester.key }}</h2>
+            <p>Moyenne: {{ semester.value }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="deleteStudent()">Supprimer l'étudiant</ion-button>
+
+<ion-button (click)="goToEditStudentPage()">Modifier l'étudiant</ion-button>
+  <ion-button (click)="goToAddMarkPage()">Ajouter une note</ion-button>
+</ion-content>-->
 
 <ion-header>
   <ion-toolbar>
@@ -52,27 +121,46 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngIf="student">
+
+    <ion-card-header>
+      <ion-card-title>{{ student.name }}</ion-card-title>
+    </ion-card-header>
+
     <ion-card-content>
-      <ion-label>ID: {{ student?.id }}</ion-label>
-      <ion-label>Nom: {{ student?.nom }}</ion-label>
-      <ion-label>Prénom: {{ student?.prenom }}</ion-label>
-      <ion-label>Niveau: {{ student?.niveau }}</ion-label>
+      <p>Matricule: {{ student?.id }}</p>
+        <p>Nom: {{ student?.nom }}</p>
+          <p>Prénom: {{ student?.prenom }}</p>
+            <p>Niveau: {{ student?.niveau }}</p>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
+  <ion-list>
+    <ion-list-header>
       Notes
-    </ion-card-header>
-    <ion-card-content>
+    </ion-list-header>
+
+    <ion-item *ngFor="let mark of mark">
+      <ion-label>
+        <h2>Matiere:{{ mark.course }}</h2>
+        <p>Semestre: {{ mark.semester }}</p>
+        <p>Note: {{ mark.score }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
       <ion-list>
-        <ion-item *ngFor="let mark of mark">
-          {{ mark.course }} - {{ mark.score }}
+        <ion-list-header>
+          Moyenne par semestre
+        </ion-list-header>
+
+        <ion-item *ngFor="let semester of averageBySemester | keyvalue">
+          <ion-label>
+            <h2>{{ semester.key }}</h2>
+            <p>Moyenne: {{ semester.value }}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
-    </ion-card-content>
-  </ion-card>
 
 
 <ion-button (click)="deleteStudent()">Supprimer l'étudiant</ion-button>
@@ -80,5 +168,3 @@
 <ion-button (click)="goToEditStudentPage()">Modifier l'étudiant</ion-button>
   <ion-button (click)="goToAddMarkPage()">Ajouter une note</ion-button>
 </ion-content>
-
-e

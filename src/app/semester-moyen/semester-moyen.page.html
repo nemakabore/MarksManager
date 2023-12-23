@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>semester-moyen</ion-title>
   </ion-toolbar>
@@ -10,4 +10,37 @@
       <ion-title size="large">semester-moyen</ion-title>
     </ion-toolbar>
   </ion-header>
+</ion-content>-->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Moyenne par semestre</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Moyenne par semestre
+    </ion-list-header>
+
+    <!-- <ion-item *ngFor="let semester of averageBySemester | keyvalue">
+      <ion-label>
+        <h2>{{ semester.key }}</h2>
+        <p>Moyenne: {{ semester.value }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content> -->
+
+<ion-item *ngFor="let student of students | keyvalue">
+  <ion-label>
+    <h2>Étudiant ID: {{ student.key }}</h2>
+    <div *ngFor="let semester of student.value | keyvalue">
+      <p>Semestre: {{ semester.key }}</p>
+      <p>Moyenne: {{ semester.value }}</p>
+    </div>
+  </ion-label>
+</ion-item>
+</ion-list>
 </ion-content>

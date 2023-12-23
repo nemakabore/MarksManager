@@ -21,6 +21,7 @@ export class StudentListPage implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
+    /** */
    this.readAllStudent();
     this.subscription.add(
       this.studentService.onStudentListUpdate().subscribe(() => {
@@ -35,13 +36,17 @@ export class StudentListPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+//pour San
+  // readAllStudent() {
+  //   this.students = [];
+  //   this.storage.forEach((v:Student) => {
+  //     this.students.push(v);
+  //   });
+  //   return this.students;
+  // }
 
   readAllStudent() {
-    this.students = [];
-    this.storage.forEach((v:Student) => {
-      this.students.push(v);
-    });
-    return this.students;
+    this.students = this.studentService.getStudents();
   }
   ionViewWillEnter() {
     this.readAllStudent();
